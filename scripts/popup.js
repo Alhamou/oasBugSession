@@ -10,5 +10,6 @@ function init(){
 
      but.addEventListener("click", function(e){
          console.log("i am here :)")
+
      })
 }
