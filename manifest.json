@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "version": "1.0",
+    "description": "just for testing and learning",
+     "icons": {
+        "16": "/images/icon-16x16.png",
+        "19": "/images/icon-19x19.png",
+        "38": "/images/icon-38x38.png",
+        "48": "/images/icon-48x48.png",
+        "128": "/images/icon-128x128.png"
+    },
+    "name": "Test is the Name",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "cookies",
+        "storage"
+    ],
+    "host_permissions": [
+        "*://*/"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "My Test default"
+    }
+
+
+}
