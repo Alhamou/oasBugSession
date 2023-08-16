@@ -1,13 +1,7 @@
-// document.addEventListener("DOMContentLoaded", init);
+    
+document.querySelector('[id="login-form:bnr"]').value = "060000006026"
+document.querySelector('[id="login-form:password"]').value = "900000"
+setTimeout(() => {
+    document.querySelector('[id="login-form:login-btn"]').click()
+}, 1000);
 
-// function init(){
-
-//      document.getElementById("date").textContent = new Date();
-
-//      const but = document.getElementById("myButton")
-
-//      but.addEventListener("click", function(e){
-//          alert("i am here :)")
-//      })
-// }
-// console.log("i am here Content :)")

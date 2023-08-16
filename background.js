@@ -1,12 +1,9 @@
 
 (async function(){
 
-    console.log(new Date())
-    // chrome.cookies.remove({url: "http://localhost/formcycle/", name: "JSESSIONID"});
 
     async function getCurrentTab() {
         let queryOptions = { active: true, lastFocusedWindow: true };
-        // `tab` will either be a `tabs.Tab` instance or `undefined`.
         let [tab] = await chrome.tabs.query(queryOptions);
         return tab;
     }
@@ -17,8 +14,10 @@
         console.log(await getCurrentTab())
         const {active, status, url} = await getCurrentTab()
 
-        if(status === 'complete' && active && url.indexOf("https://www.google.com") > -1){
-        // if(status === 'complete' && active && url.indexOf("localhost:8080/formcycle/ui/public") > -1){
+        if(status === 'complete' && active && url.indexOf("localhost:8080/formcycle/ui/public") > -1){
+            try{
+                chrome.cookies.remove({url: "http://localhost/formcycle/", name: "JSESSIONID"});
+            } catch{}
 
             chrome.tabs.update({
                 url: "http://localhost:8080/formcycle/portal/agrar/pages/public/login/login.xhtml"
@@ -26,6 +25,12 @@
 
         }
 
+        if(status === 'complete' && active && url.indexOf("http://localhost:8080/formcycle/portal/agrar/pages/public/login/login.xhtml") > -1){
+            chrome.scripting.executeScript({
+                target: {tabId: tabId, allFrames: true},
+                files: ['scripts/contentScript.js']
+            });
+        }
 
     });
 

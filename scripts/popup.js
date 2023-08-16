@@ -1,6 +1,5 @@
 
-// document.addEventListener("DOMContentLoaded", init);
-$(document).ready(init)
+document.addEventListener("DOMContentLoaded", init);
 
 function init(){
 
@@ -10,6 +9,6 @@ function init(){
 
      but.addEventListener("click", function(e){
          console.log("i am here :)")
-
      })
+     
 }
