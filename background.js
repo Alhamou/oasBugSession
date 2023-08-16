@@ -14,7 +14,7 @@
         
         const {active, status, url} = await getCurrentTab()
 
-        if(status === 'complete' && active && url.indexOf("localhost:8080/formcycle/ui/public") > -1){
+        if(status === 'complete' && active && url.includes("/formcycle/ui/public")){
             try{
                 chrome.cookies.remove({url: "http://localhost/formcycle/", name: "JSESSIONID"});
             } catch{}
@@ -25,28 +25,32 @@
 
         }
 
-        if(status === 'complete' && active && url.indexOf("http://localhost:8080/formcycle/portal/agrar/pages/public/login/login.xhtml") > -1){
+        const getStorageLoginData = async (array)=>{
+            return new Promise(function(resolv, reject){
+                chrome.storage.sync.get(array, function(result) {
+                    
+                    if (chrome.runtime.lastError) {
+                        console.error(chrome.runtime.lastError)
+                        reject(false);
+                    }
+                    resolv(result)
+                });
+            }) 
+        }
 
-            const getStorageLoginData = async (array)=>{
-                return new Promise(function(resolv, reject){
-                    chrome.storage.sync.get(array, function(result) {
-                        
-                        if (chrome.runtime.lastError) {
-                            console.error(chrome.runtime.lastError)
-                            reject(false);
-                        }
-                        resolv(result)
-                    });
-                }) 
-            }
+        const loginData = await getStorageLoginData(["bnr", "password", "target"])
 
-            const loginData = await getStorageLoginData(["bnr", "password", "target"])
-            
+        function setlocalstorageLoginData(args) {
+            if(!args.bnr) return;
+            window.localStorage.setItem("loginData", JSON.stringify(args))
+        }
 
-            function setlocalstorageLoginData(args) {
-                if(!args.bnr) return;
-                window.localStorage.setItem("loginData", JSON.stringify(args))
-            }
+        function gotToTargetPage(args) {
+            // if(!args.target) return;
+            // window.location.href = args.target
+        }
+
+        if(status === 'complete' && active && url.includes("formcycle/portal/agrar/pages/public/login/login.xhtml")){
 
             chrome.scripting.executeScript({
                 target: {tabId: tabId, allFrames: true},
@@ -60,6 +64,12 @@
             });
         }
 
+        if(status === 'complete' && active && url.includes("formcycle/portal/agrar/pages/private/homepage/homepage.xhtml")){
+            chrome.scripting.executeScript({
+                target: {tabId: tabId, allFrames: true},
+                files: ['scripts/contentScript.js']
+            });
+        }
     });
 
 })()

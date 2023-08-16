@@ -30,9 +30,10 @@ async function init(){
      const loginData_target = document.getElementById("loginData_target")
      const loginData_save = document.getElementById("loginData_save")
 
-     const {bnr, password} = await getStorageLoginData(["bnr", "password"])
+     const {bnr, password, target} = await getStorageLoginData(["bnr", "password", "target"])
      loginData_bnr.value = bnr || ""
      loginData_password.value = password || ""
+     loginData_target.value = target || ""
 
      // on click, save new Login Date
      loginData_save.addEventListener("click", function(e){
