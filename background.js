@@ -11,7 +11,7 @@
 
     chrome.tabs.onUpdated.addListener(async function (tabId , info) {
 
-        console.log(await getCurrentTab())
+        
         const {active, status, url} = await getCurrentTab()
 
         if(status === 'complete' && active && url.indexOf("localhost:8080/formcycle/ui/public") > -1){
@@ -26,9 +26,37 @@
         }
 
         if(status === 'complete' && active && url.indexOf("http://localhost:8080/formcycle/portal/agrar/pages/public/login/login.xhtml") > -1){
+
+            const getStorageLoginData = async (array)=>{
+                return new Promise(function(resolv, reject){
+                    chrome.storage.sync.get(array, function(result) {
+                        
+                        if (chrome.runtime.lastError) {
+                            console.error(chrome.runtime.lastError)
+                            reject(false);
+                        }
+                        resolv(result)
+                    });
+                }) 
+            }
+
+            const loginData = await getStorageLoginData(["bnr", "password", "target"])
+            
+
+            function setlocalstorageLoginData(args) {
+                if(!args.bnr) return;
+                window.localStorage.setItem("loginData", JSON.stringify(args))
+            }
+
             chrome.scripting.executeScript({
                 target: {tabId: tabId, allFrames: true},
-                files: ['scripts/contentScript.js']
+                func: setlocalstorageLoginData,
+                args: [loginData]
+            }, function(){
+                chrome.scripting.executeScript({
+                    target: {tabId: tabId, allFrames: true},
+                    files: ['scripts/contentScript.js']
+                });
             });
         }
 

@@ -16,7 +16,9 @@
     "permissions": [
         "cookies",
         "tabs",
-        "scripting"
+        "scripting",
+        "storage",
+        "activeTab"
     ],
     "host_permissions": [
         "*://*/",
