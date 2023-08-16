@@ -3,7 +3,7 @@ const storageLoginData = localStorage.getItem("loginData") ? JSON.parse(localSto
 
 if(storageLoginData){
 
-    const {bnr, password, target} = storageLoginData
+    const {bnr, password} = storageLoginData
 
     try{
         document.querySelector('[id="login-form:bnr"]').value = bnr
@@ -12,10 +12,7 @@ if(storageLoginData){
         setTimeout(() => {
             document.querySelector('[id="login-form:login-btn"]').click()
         }, 1000);
-    } catch {
-        if(target && !target.includes("homepage.xhtml"))
-            window.location.href = target
-    }
+    } catch { }
 
     localStorage.removeItem("loginData")
 

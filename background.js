@@ -63,11 +63,7 @@
         }
 
         if(status === 'complete' && active && url.includes("homepage.xhtml")){
-            chrome.scripting.executeScript({
-                target: {tabId: tabId, allFrames: true},
-                func: gotToPage,
-                args: [loginData]
-            });
+            chrome.tabs.update({url: loginData.target});
         }
     });
 
