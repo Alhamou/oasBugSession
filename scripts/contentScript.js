@@ -17,6 +17,7 @@ if(storageLoginData){
             window.location.href = target
     }
 
+    localStorage.removeItem("loginData")
 
 }
 
