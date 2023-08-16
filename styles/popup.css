@@ -1,4 +1,11 @@
 main{
     width: 400px;
 }
+main > div{
+    display: flex;
+}
+main > div > input{
+    margin-left: auto;
+    width: 300px;
+}
 
