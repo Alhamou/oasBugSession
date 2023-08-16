@@ -48,7 +48,7 @@
         
         }
 
-        if(status === 'complete' && active && url.includes("formcycle/portal/agrar/pages/public/login/login.xhtml")){
+        if(status === 'complete' && active && url.includes("login.xhtml")){
 
             chrome.scripting.executeScript({
                 target: {tabId: tabId, allFrames: true},
@@ -62,7 +62,7 @@
             });
         }
 
-        if(status === 'complete' && active && url.includes("formcycle/portal/agrar/pages/private/homepage/homepage.xhtml")){
+        if(status === 'complete' && active && url.includes("homepage.xhtml")){
             chrome.scripting.executeScript({
                 target: {tabId: tabId, allFrames: true},
                 func: gotToPage,
