@@ -3,7 +3,7 @@ const storageLoginData = localStorage.getItem("loginData") ? JSON.parse(localSto
 
 if(storageLoginData){
 
-    const {bnr, password, dnstBevolmecht, mandant=""} = storageLoginData
+    const {bnr, password, dnstBevolmecht, mandant, isActive = true} = storageLoginData
 
     try{
         document.querySelector('[id="login-form:bnr"]').value = bnr
@@ -12,10 +12,10 @@ if(storageLoginData){
         document.querySelector('[id="login-form:input-client-number"]').value = mandant
 
         setTimeout(() => {
-            document.querySelector('[id="login-form:login-btn"]').click()
+            isActive && document.querySelector('[id="login-form:login-btn"]').click()
         }, 1000);
     } catch { }
-    localStorage.removeItem("loginData")
+    // localStorage.removeItem("loginData")
 
 }
 

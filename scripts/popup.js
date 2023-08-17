@@ -30,14 +30,17 @@ async function doValueFromElements (setElementsValue){
   const loginData_target = document.getElementById("loginData_target")
   const loginData_dnstBevolmecht = $("#loginData_dnstBevolmecht")
   const loginData_mandant = document.getElementById("loginData_mandant")
+  const extensionIsActive = $("#extensionIsActive")
 
+  
   if(setElementsValue){
-    const {bnr, password, dnstBevolmecht, mandant, target} = await getStorageLoginData(["bnr", "password", "dnstBevolmecht", "mandant", "target"])
+    const {bnr, password, dnstBevolmecht, mandant, target, isActive} = await getStorageLoginData(["bnr", "password", "dnstBevolmecht", "mandant", "target", "isActive"])
     loginData_bnr.value = bnr || ""
     loginData_password.value = password || ""
     loginData_target.value = target || ""
     loginData_mandant.value = mandant || ""
-    dnstBevolmecht ? loginData_dnstBevolmecht.attr("checked", "checked") : loginData_dnstBevolmecht.attr("checked", false)
+    dnstBevolmecht ? loginData_dnstBevolmecht.prop("checked", true) : loginData_dnstBevolmecht.prop("checked", false)
+    isActive ? extensionIsActive.prop("checked", true) : extensionIsActive.prop("checked", false)
     return;
   }
   
@@ -47,6 +50,7 @@ async function doValueFromElements (setElementsValue){
     dnstBevolmecht: loginData_dnstBevolmecht.prop("checked"),
     mandant: loginData_mandant.value,
     target: loginData_target.value,
+    isActive: extensionIsActive.prop("checked")
   }
 }
 

@@ -33,7 +33,7 @@
         }
 
         const {active, status, url} = await getCurrentTab();
-        const loginData = await getStorageLoginData(["bnr", "password", "dnstBevolmecht", "mandant", "target"]);
+        const loginData = await getStorageLoginData(["bnr", "password", "dnstBevolmecht", "mandant", "target", "isActive"]);
 
 
         if(status === 'complete' && active && url.includes("/formcycle/ui/")){
