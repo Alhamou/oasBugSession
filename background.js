@@ -27,16 +27,11 @@
             window.localStorage.setItem("loginData", JSON.stringify(args))
         }
 
-        function gotToPage(args) {
-            if(!args.target) return;
-            window.location.href = args.target
-        }
-
         const {active, status, url} = await getCurrentTab();
         const loginData = await getStorageLoginData(["bnr", "password", "dnstBevolmecht", "mandant", "target", "isActive"]);
 
 
-        if(status === 'complete' && active && url.includes("/formcycle/ui/")){
+        if(loginData.isActive && status === 'complete' && active && url.includes("/formcycle/ui/")){
             try{
                 chrome.cookies.remove({url: "http://localhost/formcycle/", name: "JSESSIONID"});
             } catch{}
@@ -48,7 +43,7 @@
         
         }
 
-        if(status === 'complete' && active && url.includes("login.xhtml")){
+        if(loginData.isActive && status === 'complete' && active && url.includes("login.xhtml")){
 
             chrome.scripting.executeScript({
                 target: {tabId: tabId, allFrames: true},
@@ -62,7 +57,8 @@
             });
         }
 
-        if(status === 'complete' && active && url.includes("homepage.xhtml")){
+        if(loginData.isActive && status === 'complete' && active && url.includes("homepage.xhtml")){
+            if(loginData.target.length > 0)
             chrome.tabs.update({url: loginData.target});
         }
     });

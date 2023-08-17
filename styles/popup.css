@@ -26,9 +26,17 @@ button, label{
 .isActive{
     float: right;
 }
-#loginData_save{
+button#loginData_save{
     background-color: #006ba1;
     color: #fff;
     border: 0;
     padding: 3px 15px;
+}
+button#loginData_save:active {
+    background-color: #06567d;
+    color: #fff;
+}
+section{
+    background: #f6f6f6;
+    padding: 10px 10px;
 }
